@@ -48,13 +48,13 @@ jobs:
         include:
           - os: ubuntu-22.04
             artifact_name: linux
-            setup_command: bash linux.sh
+            setup_command: mkdir -p ffmpeg && curl -L https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/ffmpeg_linux_amd64.tar.xz -o ffmpeg_linux_amd64.tar.xz && curl -L https://github.com/aandrew-me/ffmpeg-builds/releases/download/v8/node_linux_amd64 -o node && chmod +x node && tar -xf ffmpeg_linux_amd64.tar.xz && rm -rf ffmpeg && mv ffmpeg_linux_amd64 ffmpeg && chmod +x ffmpeg/bin/ffmpeg ffmpeg/bin/ffprobe ffmpeg/bin/ffplay
             build_command: npx electron-builder --linux AppImage zip --publish never
           - os: windows-latest
             artifact_name: windows
             setup_command: powershell -ExecutionPolicy Bypass -File windows.ps1
             build_command: npx electron-builder --win nsis zip --x64 --publish never
-          - os: macos-13
+          - os: macos-15-intel
             artifact_name: macos-intel
             setup_command: bash mac.sh
             build_command: npx electron-builder --mac dmg zip --x64 --publish never
