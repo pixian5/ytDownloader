@@ -399,6 +399,7 @@ const playlistDownloader = {
 	// yt-dlp event handling
 	handleDownloadEvents(process, type) {
 		let count = 0;
+		let hasError = false;
 
 		process.on("ytDlpEvent", (_eventType, eventData) => {
 			const playlistTxt = "Downloading playlist: ";
@@ -459,8 +460,20 @@ const playlistDownloader = {
 			}
 		});
 
-		process.on("error", (error) => this.showError(error));
-		process.on("close", () => this.finishDownload(count));
+		process.on("error", (error) => {
+			hasError = true;
+			this.showError(error);
+		});
+		process.on("close", (code) => {
+			if (hasError) return;
+
+			if (code === 0 && count > 0) {
+				this.finishDownload(count);
+				return;
+			}
+
+			this.showError(new Error(window.i18n.__("errorNetworkOrUrl")));
+		});
 	},
 
 	pasteLink() {
