@@ -399,6 +399,7 @@ const playlistDownloader = {
 	// yt-dlp event handling
 	handleDownloadEvents(process, type) {
 		let count = 0;
+		let hasError = false;
 
 		process.on("ytDlpEvent", (_eventType, eventData) => {
 			const playlistTxt = "Downloading playlist: ";
@@ -459,8 +460,24 @@ const playlistDownloader = {
 			}
 		});
 
-		process.on("error", (error) => this.showError(error));
-		process.on("close", () => this.finishDownload(count));
+		process.on("error", (error) => {
+			hasError = true;
+			this.showError(error);
+		});
+		process.on("close", (code) => {
+			if (hasError) return;
+
+			if (code === 0 && count > 0) {
+				this.finishDownload(count);
+				return;
+			}
+
+			const msg =
+				code === 0
+					? "Download process finished but no playlist items were downloaded."
+					: `Download process exited with code ${code}.`;
+			this.showError(new Error(msg));
+		});
 	},
 
 	pasteLink() {
