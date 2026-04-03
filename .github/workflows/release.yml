@@ -109,8 +109,16 @@ jobs:
           tag_name: ${{ needs.prepare.outputs.tag }}
           name: ${{ needs.prepare.outputs.release_name }}
           target_commitish: ${{ github.sha }}
+          draft: false
           generate_release_notes: true
           fail_on_unmatched_files: true
-          files: release-assets/**
+          files: |
+            release-assets/**/*.AppImage
+            release-assets/**/*.dmg
+            release-assets/**/*.exe
+            release-assets/**/*.yml
+            release-assets/**/*.yaml
+            release-assets/**/*.zip
+            release-assets/**/*.blockmap
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
