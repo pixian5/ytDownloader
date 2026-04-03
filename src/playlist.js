@@ -472,11 +472,7 @@ const playlistDownloader = {
 				return;
 			}
 
-			const msg =
-				code === 0
-					? "Download process finished but no playlist items were downloaded."
-					: `Download process exited with code ${code}.`;
-			this.showError(new Error(msg));
+			this.showError(new Error(window.i18n.__("errorNetworkOrUrl")));
 		});
 	},
 
