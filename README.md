@@ -202,3 +202,16 @@ If you only want to build for one format, you can do
 npx electron-builder -l appimage
 ```
 It will just create a linux appimage build.
+
+## GitHub Actions release
+
+This repository includes a GitHub Actions workflow at `.github/workflows/release.yml`.
+
+After pushing a commit to the `main` branch, GitHub Actions will:
+
+- install dependencies
+- prepare ffmpeg files required by this project
+- build release packages for Linux, Windows, macOS Intel and macOS Apple Silicon
+- create a GitHub Release automatically and upload the generated artifacts
+
+The workflow uses the built-in `GITHUB_TOKEN`, so no extra release token is required.

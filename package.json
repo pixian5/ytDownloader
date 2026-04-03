@@ -24,7 +24,7 @@
 	},
 	"publish": {
 		"provider": "github",
-		"owner": "aandrew-me",
+		"owner": "pixian5",
 		"repo": "ytDownloader",
 		"private": false
 	},

@@ -3,6 +3,9 @@ release
 test.js
 .*
 !/.gitignore
+!/.github
+!/.github/
+!/.github/**
 todo.txt
 ffmpeg*
 ffmpeg.exe
