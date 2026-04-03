@@ -111,13 +111,12 @@ jobs:
           target_commitish: ${{ github.sha }}
           draft: false
           generate_release_notes: true
-          fail_on_unmatched_files: true
+          fail_on_unmatched_files: false
           files: |
             release-assets/**/*.AppImage
             release-assets/**/*.dmg
             release-assets/**/*.exe
             release-assets/**/*.yml
-            release-assets/**/*.yaml
             release-assets/**/*.zip
             release-assets/**/*.blockmap
         env:
